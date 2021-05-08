@@ -7,58 +7,55 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import hu.bme.aut.android.kliensalk_hf_2_android.MainActivity
 import hu.bme.aut.android.kliensalk_hf_2_android.R
-import hu.bme.aut.android.kliensalk_hf_2_android.ReviewsApplication
 import hu.bme.aut.android.kliensalk_hf_2_android.adapter.ReviewAdapter
 import hu.bme.aut.android.kliensalk_hf_2_android.data.Review
+import hu.bme.aut.android.kliensalk_hf_2_android.data.UserDatabase
 import hu.bme.aut.android.kliensalk_hf_2_android.databinding.ActivityListBinding
-import hu.bme.aut.android.kliensalk_hf_2_android.viewmodel.ReviewViewModel
-import hu.bme.aut.android.kliensalk_hf_2_android.viewmodel.WordViewModelFactory
+import kotlinx.coroutines.*
 
 
-class ListActivity : AppCompatActivity() {
+class ListActivity : AppCompatActivity(), ReviewAdapter.ReviewClickListener,
+    CoroutineScope by MainScope() {
 
     private lateinit var binding: ActivityListBinding
+    private lateinit var adapter: ReviewAdapter
+    private lateinit var database: UserDatabase
 
     private val newWordActivityRequestCode = 1
-    private val wordViewModel: ReviewViewModel by viewModels {
-        WordViewModelFactory((application as ReviewsApplication).repository)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        database = UserDatabase.getDatabase(applicationContext)
+
         title = getString(R.string.reviews_title, intent.getStringExtra("username"))
-
-        wordViewModel.updateAllWords(intent.getLongExtra("userId", 0))
-
-        val recyclerView = binding.recyclerview
-        val adapter = ReviewAdapter()
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
-
-        wordViewModel.allWords.observe(this, { words ->
-            // Update the cached copy of the words in the adapter.
-            words?.let { adapter.submitList(it) }
-        })
 
         binding.fab.setOnClickListener {
             val intent = Intent(this@ListActivity, NewReviewActivity::class.java)
             startActivityForResult(intent, newWordActivityRequestCode)
         }
+
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView() {
+        adapter = ReviewAdapter(this)
+        binding.recyclerview.layoutManager = LinearLayoutManager(this)
+        binding.recyclerview.adapter = adapter
+        loadItemsInBackground()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK && data != null) {
-            wordViewModel.insert(
+            addItemInBackground(
                 Review(
                     userCreatorId = intent.getLongExtra("userId", 0),
                     title = data.getStringExtra("title")!!,
@@ -80,6 +77,51 @@ class ListActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.logout_menu, menu)
         return true
+    }
+
+    private fun loadItemsInBackground() = launch {
+        val items = withContext(Dispatchers.IO) {
+            database.userWithReviewsDao().getReviewsForUser(intent.getLongExtra("userId", 0))
+        }
+        adapter.update(items)
+    }
+
+    override fun onItemChanged(item: Review) {
+        updateItemInBackground(item)
+    }
+
+    override fun onItemRemoved(item: Review) {
+        deleteItemInBackground(item)
+    }
+
+    override fun onItemClicked(item: Review) {
+        val intent = Intent(this, ViewReview::class.java)
+        intent.putExtra("review", item)
+        startActivity(intent)
+    }
+
+    private fun updateItemInBackground(item: Review) = launch {
+        withContext(Dispatchers.IO) {
+            database.userWithReviewsDao().updateReview(item)
+        }
+    }
+
+    fun onShoppingItemCreated(item: Review) {
+        addItemInBackground(item)
+    }
+
+    private fun addItemInBackground(item: Review) = launch {
+        withContext(Dispatchers.IO) {
+            database.userWithReviewsDao().insertReview(item)
+        }
+        adapter.addItem(item)
+    }
+
+    private fun deleteItemInBackground(item: Review) = launch {
+        withContext(Dispatchers.IO) {
+            database.userWithReviewsDao().deleteReview(item)
+        }
+        adapter.deleteItem(item)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
