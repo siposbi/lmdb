@@ -1,53 +1,49 @@
 package hu.bme.aut.android.kliensalk_hf_2_android.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import hu.bme.aut.android.kliensalk_hf_2_android.R
+import hu.bme.aut.android.kliensalk_hf_2_android.adapter.ReviewAdapter.*
 import hu.bme.aut.android.kliensalk_hf_2_android.data.Review
-import hu.bme.aut.android.kliensalk_hf_2_android.databinding.ReviewListItemBinding
 
-class ReviewAdapter(private val listener: ReviewClickListener) : RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder>() {
-
-    private var items = mutableListOf<Review>()
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ReviewViewHolder(
-        ReviewListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-    )
+class ReviewAdapter : ListAdapter<Review, ReviewViewHolder>(ReviewComparator()){
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewViewHolder {
+        return ReviewViewHolder.create(parent)
+    }
 
     override fun onBindViewHolder(holder: ReviewViewHolder, position: Int) {
-        val review = items[position]
-
-        holder.binding.tvTitle.text = review.title
+        val current = getItem(position)
+        holder.bind(current.title)
     }
 
-    fun addReview(review: Review) {
-        items.add(review)
-        notifyItemInserted(items.size - 1)
+    class ReviewViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val wordItemView: TextView = itemView.findViewById(R.id.tvTitle)
+
+        fun bind(text: String?) {
+            wordItemView.text = text
+        }
+
+        companion object {
+            fun create(parent: ViewGroup): ReviewViewHolder {
+                val view: View = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.review_list_item, parent, false)
+                return ReviewViewHolder(view)
+            }
+        }
     }
 
-    fun updateReviews(reviewList: List<Review>) {
-        items.clear()
-        items.addAll(reviewList)
-        notifyDataSetChanged()
+    class ReviewComparator : DiffUtil.ItemCallback<Review>() {
+        override fun areItemsTheSame(oldItem: Review, newItem: Review): Boolean {
+            return oldItem === newItem
+        }
+
+        override fun areContentsTheSame(oldItem: Review, newItem: Review): Boolean {
+            return oldItem.title == newItem.title
+        }
     }
-
-    fun deleteReview(review: Review){
-        val index = items.indexOf(review)
-        items.removeAt(index)
-        notifyItemRemoved(index)
-    }
-
-    fun setData(newData: MutableList<Review>) {
-        items = newData
-        notifyDataSetChanged()
-    }
-
-    override fun getItemCount(): Int = items.size
-
-    interface ReviewClickListener {
-        fun onReviewChanged(review: Review)
-        fun onReviewRemoved(review: Review)
-    }
-
-    inner class ReviewViewHolder(val binding: ReviewListItemBinding) : RecyclerView.ViewHolder(binding.root)
 }
