@@ -5,23 +5,77 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/edit_word"
+        android:id="@+id/etTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="20dp"
         android:fontFamily="sans-serif-light"
-        android:hint="hint"
+        android:hint="Title"
         android:inputType="textAutoComplete"
         android:layout_margin="20dp"
         android:textSize="18sp" />
 
+    <EditText
+        android:id="@+id/etYear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="20dp"
+        android:fontFamily="sans-serif-light"
+        android:hint="Year"
+        android:inputType="textAutoComplete"
+        android:layout_margin="20dp"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/etGenre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="20dp"
+        android:fontFamily="sans-serif-light"
+        android:hint="Genre"
+        android:inputType="textAutoComplete"
+        android:layout_margin="20dp"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/etPlot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="20dp"
+        android:fontFamily="sans-serif-light"
+        android:hint="Plot"
+        android:inputType="textAutoComplete"
+        android:layout_margin="20dp"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/etPosterIrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="20dp"
+        android:fontFamily="sans-serif-light"
+        android:hint="Poster URL"
+        android:inputType="textUri"
+        android:layout_margin="20dp"
+        android:textSize="18sp" />
+
     <Button
-        android:id="@+id/button_save"
+        android:id="@+id/btnSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cardview_light_background"
+        android:text="@string/search_button"
+        android:layout_margin="20dp"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/btnSave"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/cardview_light_background"
         android:text="@string/ok"
-        android:layout_margin="20dp"
-        android:textColor="@color/purple_700" />
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="20dp"
+        android:textColor="@color/white" />
 
 </LinearLayout>

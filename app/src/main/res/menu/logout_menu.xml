@@ -8,7 +8,7 @@
         android:id="@+id/action_favorite"
         android:orderInCategory="300"
         android:title="Logout"
-        android:icon="@drawable/outline_logout_black_36"
+        android:icon="@drawable/ic_baseline_exit_to_app_24"
         app:showAsAction="ifRoom" />
 
 </menu>

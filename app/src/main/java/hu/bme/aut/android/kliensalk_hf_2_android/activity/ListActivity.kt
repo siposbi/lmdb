@@ -9,7 +9,6 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import hu.bme.aut.android.kliensalk_hf_2_android.MainActivity
 import hu.bme.aut.android.kliensalk_hf_2_android.R
@@ -35,6 +34,8 @@ class ListActivity : AppCompatActivity() {
         binding = ActivityListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        title = getString(R.string.reviews_title, intent.getStringExtra("username"))
+
         wordViewModel.updateAllWords(intent.getLongExtra("userId", 0))
 
         val recyclerView = binding.recyclerview
@@ -42,7 +43,7 @@ class ListActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
 
-        wordViewModel.allWords.observe(this, Observer { words ->
+        wordViewModel.allWords.observe(this, { words ->
             // Update the cached copy of the words in the adapter.
             words?.let { adapter.submitList(it) }
         })
@@ -56,14 +57,17 @@ class ListActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            data?.getStringExtra(NewReviewActivity.EXTRA_REPLY)?.let {
-                val word = Review(
+        if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK && data != null) {
+            wordViewModel.insert(
+                Review(
                     userCreatorId = intent.getLongExtra("userId", 0),
-                    title = it
+                    title = data.getStringExtra("title")!!,
+                    year = data.getStringExtra("year")!!,
+                    genre = data.getStringExtra("genre")!!,
+                    plot = data.getStringExtra("plot")!!,
+                    posterUrl = data.getStringExtra("posterUrl")!!
                 )
-                wordViewModel.insert(word)
-            }
+            )
         } else {
             Toast.makeText(
                 applicationContext,

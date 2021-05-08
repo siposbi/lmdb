@@ -13,4 +13,10 @@
     <string name="reviews_title">Reviews by %1$s</string>
     <string name="ok">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="search_button">Search to autofill</string>
+    <string name="no_title_entered">No title entered</string>
+    <string name="no_year_entered">No year entered</string>
+    <string name="no_genre_entered">No genre entered</string>
+    <string name="no_plot_entered">No plot entered</string>
+    <string name="no_etposter_entered">No Poster URL entered</string>
 </resources>
