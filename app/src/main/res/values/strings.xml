@@ -6,4 +6,11 @@
     <string name="login_button">Login</string>
     <string name="no_username_entered_error">Please enter your username</string>
     <string name="no_password_entered_error">Please enter your password</string>
+    <string name="register_button">Register</string>
+    <string name="main_title">Login Or Register</string>
+    <string name="fab_content_description">Add Review</string>
+    <string name="add_review_title">Add Review</string>
+    <string name="reviews_title">Reviews by %1$s</string>
+    <string name="ok">Save</string>
+    <string name="cancel">Cancel</string>
 </resources>

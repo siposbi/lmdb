@@ -10,6 +10,7 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.Kliensalkhf2android">
+        <activity android:name=".AddReviewActivity" />
         <activity android:name=".ListActivity" />
         <activity
             android:name=".MainActivity"
