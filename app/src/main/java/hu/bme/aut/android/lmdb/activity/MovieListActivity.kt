@@ -11,7 +11,7 @@ import hu.bme.aut.android.lmdb.MainActivity
 import hu.bme.aut.android.lmdb.MainActivity.Companion.KEY_IS_LOGGED_IN_STRING
 import hu.bme.aut.android.lmdb.MainActivity.Companion.KEY_USER_PREFERENCES_STRING
 import hu.bme.aut.android.lmdb.R
-import hu.bme.aut.android.lmdb.activity.ViewMovie.Companion.KEY_REVIEW_STRING
+import hu.bme.aut.android.lmdb.activity.ViewMovie.Companion.KEY_VIEW_MOVIE_STRING
 import hu.bme.aut.android.lmdb.adapter.MovieAdapter
 import hu.bme.aut.android.lmdb.data.UserDatabase
 import hu.bme.aut.android.lmdb.data.model.Movie
@@ -34,7 +34,6 @@ class MovieListActivity : AppCompatActivity(), MovieAdapter.MovieClickListener,
     private val newReviewContract =
         registerForActivityResult(NewMovieActivity.NewMovieContract()) { review ->
             if (review == null) {
-//                Snackbar.make(binding.root, "a", Snackbar.LENGTH_LONG).show()
                 showSnackbar(R.string.movie_not_saved_msg, binding.root)
             } else {
                 addItemInBackground(review)
@@ -78,7 +77,7 @@ class MovieListActivity : AppCompatActivity(), MovieAdapter.MovieClickListener,
     }
 
     override fun onItemClicked(item: Movie) {
-        startActivity(Intent(this, ViewMovie::class.java).putExtra(KEY_REVIEW_STRING, item))
+        startActivity(Intent(this, ViewMovie::class.java).putExtra(KEY_VIEW_MOVIE_STRING, item))
     }
 
     override fun onItemModified(item: Movie) {
