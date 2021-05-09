@@ -1,6 +1,5 @@
 package hu.bme.aut.android.kliensalk_hf_2_android.activity
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -12,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import hu.bme.aut.android.kliensalk_hf_2_android.MainActivity
 import hu.bme.aut.android.kliensalk_hf_2_android.R
 import hu.bme.aut.android.kliensalk_hf_2_android.adapter.ReviewAdapter
-import hu.bme.aut.android.kliensalk_hf_2_android.data.Review
 import hu.bme.aut.android.kliensalk_hf_2_android.data.UserDatabase
+import hu.bme.aut.android.kliensalk_hf_2_android.data.model.Review
 import hu.bme.aut.android.kliensalk_hf_2_android.databinding.ActivityListBinding
 import kotlinx.coroutines.*
 
@@ -25,7 +24,25 @@ class ListActivity : AppCompatActivity(), ReviewAdapter.ReviewClickListener,
     private lateinit var adapter: ReviewAdapter
     private lateinit var database: UserDatabase
 
-    private val newWordActivityRequestCode = 1
+    private val newReviewContract = registerForActivityResult(
+        NewReviewActivity.NewReviewContract()
+    ) { review ->
+        if (review == null) {
+            Toast.makeText(applicationContext, "not saved", Toast.LENGTH_LONG).show()
+        } else {
+            addItemInBackground(review)
+        }
+    }
+
+    private val editReviewContract = registerForActivityResult(
+        NewReviewActivity.EditReviewContract()
+    ) { review ->
+        if (review == null) {
+            Toast.makeText(applicationContext, "not saved", Toast.LENGTH_LONG).show()
+        } else {
+            updateItemInBackground(review)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +54,7 @@ class ListActivity : AppCompatActivity(), ReviewAdapter.ReviewClickListener,
         title = getString(R.string.reviews_title, intent.getStringExtra("username"))
 
         binding.fab.setOnClickListener {
-            val intent = Intent(this@ListActivity, NewReviewActivity::class.java)
-            startActivityForResult(intent, newWordActivityRequestCode)
+            newReviewContract.launch(intent.getLongExtra("userId", 0))
         }
 
         initRecyclerView()
@@ -51,29 +67,6 @@ class ListActivity : AppCompatActivity(), ReviewAdapter.ReviewClickListener,
         loadItemsInBackground()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK && data != null) {
-            addItemInBackground(
-                Review(
-                    userCreatorId = intent.getLongExtra("userId", 0),
-                    title = data.getStringExtra("title")!!,
-                    year = data.getStringExtra("year")!!,
-                    genre = data.getStringExtra("genre")!!,
-                    plot = data.getStringExtra("plot")!!,
-                    posterUrl = data.getStringExtra("posterUrl")!!
-                )
-            )
-        } else {
-            Toast.makeText(
-                applicationContext,
-                "not saved",
-                Toast.LENGTH_LONG
-            ).show()
-        }
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.logout_menu, menu)
         return true
@@ -83,7 +76,7 @@ class ListActivity : AppCompatActivity(), ReviewAdapter.ReviewClickListener,
         val items = withContext(Dispatchers.IO) {
             database.userWithReviewsDao().getReviewsForUser(intent.getLongExtra("userId", 0))
         }
-        adapter.update(items)
+        adapter.loadItems(items)
     }
 
     override fun onItemChanged(item: Review) {
@@ -95,15 +88,18 @@ class ListActivity : AppCompatActivity(), ReviewAdapter.ReviewClickListener,
     }
 
     override fun onItemClicked(item: Review) {
-        val intent = Intent(this, ViewReview::class.java)
-        intent.putExtra("review", item)
-        startActivity(intent)
+        startActivity(Intent(this, ViewReview::class.java).putExtra("review", item))
+    }
+
+    override fun onItemModified(item: Review) {
+        editReviewContract.launch(item)
     }
 
     private fun updateItemInBackground(item: Review) = launch {
         withContext(Dispatchers.IO) {
             database.userWithReviewsDao().updateReview(item)
         }
+        adapter.update(item)
     }
 
     fun onShoppingItemCreated(item: Review) {

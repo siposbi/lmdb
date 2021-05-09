@@ -1,18 +1,20 @@
 package hu.bme.aut.android.kliensalk_hf_2_android.activity
 
-import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
 import hu.bme.aut.android.kliensalk_hf_2_android.R
+import hu.bme.aut.android.kliensalk_hf_2_android.data.model.Review
 import hu.bme.aut.android.kliensalk_hf_2_android.databinding.ActivityNewReviewBinding
-import hu.bme.aut.android.kliensalk_hf_2_android.model.OMDBData
 import hu.bme.aut.android.kliensalk_hf_2_android.network.NetworkManager
+import hu.bme.aut.android.kliensalk_hf_2_android.network.model.OMDBData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,6 +30,11 @@ class NewReviewActivity : AppCompatActivity() {
 
         title = getString(R.string.add_review_title)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val review = intent.getParcelableExtra<Review>("review")
+        if (review != null) {
+            initFroEdit(review)
+        }
 
         binding.btnSearch.setOnClickListener {
             NetworkManager.getMovie(
@@ -82,24 +89,29 @@ class NewReviewActivity : AppCompatActivity() {
         }
 
         binding.btnSave.setOnClickListener {
-            val replyIntent = Intent()
-            if (checkInputFields().not()) {
-                setResult(Activity.RESULT_CANCELED, replyIntent)
-            } else {
-                val title = binding.etTitle.text.toString()
-                replyIntent.putExtra("title", title)
-                val year = binding.etYear.text.toString()
-                replyIntent.putExtra("year", year)
-                val genre = binding.etGenre.text.toString()
-                replyIntent.putExtra("genre", genre)
-                val plot = binding.etPlot.text.toString()
-                replyIntent.putExtra("plot", plot)
-                val posterUrl = binding.etPosterIrl.text.toString()
-                replyIntent.putExtra("posterUrl", posterUrl)
-                setResult(Activity.RESULT_OK, replyIntent)
+            if (checkInputFields()) {
+                val responseReview = Review(
+                    reviewId = review?.reviewId ?: 0,
+                    userCreatorId = intent.getLongExtra("userId", 0),
+                    title = binding.etTitle.text.toString(),
+                    year = binding.etYear.text.toString(),
+                    genre = binding.etGenre.text.toString(),
+                    plot = binding.etPlot.text.toString(),
+                    posterUrl = binding.etPosterIrl.text.toString()
+                )
+
+                setResult(RESULT_OK, Intent().putExtra("review", responseReview))
                 finish()
             }
         }
+    }
+
+    private fun initFroEdit(review: Review) {
+        binding.etTitle.setText(review.title)
+        binding.etYear.setText(review.year)
+        binding.etGenre.setText(review.genre)
+        binding.etPlot.setText(review.plot)
+        binding.etPosterIrl.setText(review.posterUrl)
     }
 
     private fun checkInputFields(): Boolean {
@@ -154,5 +166,23 @@ class NewReviewActivity : AppCompatActivity() {
             }
         }
         return super.onContextItemSelected(item)
+    }
+
+    class NewReviewContract : ActivityResultContract<Long, Review?>() {
+        override fun createIntent(context: Context, input: Long?): Intent =
+            Intent(context, NewReviewActivity::class.java).putExtra("userId", input)
+
+        override fun parseResult(resultCode: Int, intent: Intent?): Review? =
+            intent?.getParcelableExtra("review")
+
+    }
+
+    class EditReviewContract : ActivityResultContract<Review, Review?>() {
+        override fun createIntent(context: Context, input: Review?): Intent =
+            Intent(context, NewReviewActivity::class.java).putExtra("review", input)
+
+        override fun parseResult(resultCode: Int, intent: Intent?): Review? =
+            intent?.getParcelableExtra("review")
+
     }
 }

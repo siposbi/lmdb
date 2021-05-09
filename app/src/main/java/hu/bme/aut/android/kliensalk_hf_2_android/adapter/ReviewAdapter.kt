@@ -1,9 +1,10 @@
 package hu.bme.aut.android.kliensalk_hf_2_android.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import hu.bme.aut.android.kliensalk_hf_2_android.data.Review
+import hu.bme.aut.android.kliensalk_hf_2_android.data.model.Review
 import hu.bme.aut.android.kliensalk_hf_2_android.databinding.ReviewListItemBinding
 
 class ReviewAdapter(private val listener: ReviewClickListener) :
@@ -27,6 +28,10 @@ class ReviewAdapter(private val listener: ReviewClickListener) :
         holder.itemView.setOnClickListener {
             listener.onItemClicked(current)
         }
+
+        holder.binding.ibEdit.setOnClickListener {
+            listener.onItemModified(current)
+        }
     }
 
     fun addItem(item: Review) {
@@ -34,7 +39,14 @@ class ReviewAdapter(private val listener: ReviewClickListener) :
         notifyItemInserted(items.size - 1)
     }
 
-    fun update(shoppingItems: List<Review>) {
+    fun update(item: Review) {
+        val index = items.indexOfFirst {it.reviewId == item.reviewId}
+        Log.i("indexofreview", index.toString())
+        items[index] = item
+        notifyItemChanged(index)
+    }
+
+    fun loadItems(shoppingItems: List<Review>) {
         items.clear()
         items.addAll(shoppingItems)
         notifyDataSetChanged()
@@ -52,6 +64,7 @@ class ReviewAdapter(private val listener: ReviewClickListener) :
         fun onItemChanged(item: Review)
         fun onItemRemoved(item: Review)
         fun onItemClicked(item: Review)
+        fun onItemModified(item: Review)
     }
 
     inner class ShoppingViewHolder(val binding: ReviewListItemBinding) :
