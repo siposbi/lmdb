@@ -10,22 +10,20 @@ interface UserWithReviewsDao {
     @Insert
     suspend fun register(user: User)
 
-    @Transaction
     @Query("SELECT * FROM User WHERE UPPER(username) = UPPER(:username) and password = :password")
     suspend fun login(username: String, password: String): User
-
-    @Transaction
-    @Query("SELECT * FROM Movie WHERE userCreatorId = :userId")
-    fun getReviewsForUser(userId: Long): List<Movie>
 
     @Query("SELECT COUNT(*) FROM User WHERE UPPER(username) = UPPER(:username)")
     suspend fun checkIfExists(username: String): Int
 
-    @Update
-    suspend fun updateReview(movie: Movie)
-
     @Insert
     suspend fun insertReview(movie: Movie): Long
+
+    @Query("SELECT * FROM Movie WHERE userCreatorId = :userId")
+    fun getReviewsForUser(userId: Long): List<Movie>
+
+    @Update
+    suspend fun updateReview(movie: Movie)
 
     @Delete
     suspend fun deleteReview(movie: Movie)
