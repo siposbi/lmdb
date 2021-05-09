@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">kliensalk-hf-2-android</string>
+    <string name="login_to_use_lmdb">Login to use LMDB</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login_button">Login</string>
+    <string name="no_username_entered_error">Please enter your username</string>
+    <string name="no_password_entered_error">Please enter your password</string>
 </resources>
