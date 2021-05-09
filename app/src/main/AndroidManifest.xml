@@ -2,15 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="hu.bme.aut.android.kliensalk_hf_2_android">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
-        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Kliensalkhf2android">
-        <activity android:name=".ListActivity" />
+        android:theme="@style/Theme.Kliensalkhf2android"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".activity.ViewReview"></activity>
+        <activity android:name=".activity.NewReviewActivity" />
+        <activity android:name=".activity.ListActivity" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/SplashTheme">
