@@ -1,4 +1,4 @@
-package hu.bme.aut.android.kliensalk_hf_2_android.network.model
+package hu.bme.aut.android.lmdb.network.model
 
 import com.google.gson.annotations.SerializedName
 

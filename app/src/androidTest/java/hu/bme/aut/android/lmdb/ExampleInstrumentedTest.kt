@@ -1,4 +1,4 @@
-package hu.bme.aut.android.kliensalk_hf_2_android
+package hu.bme.aut.android.lmdb
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("hu.bme.aut.android.kliensalk_hf_2_android", appContext.packageName)
+        assertEquals("hu.bme.aut.android.lmdb", appContext.packageName)
     }
 }

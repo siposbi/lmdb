@@ -1,13 +1,13 @@
-package hu.bme.aut.android.kliensalk_hf_2_android.data
+package hu.bme.aut.android.lmdb.data
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import hu.bme.aut.android.kliensalk_hf_2_android.data.model.Review
-import hu.bme.aut.android.kliensalk_hf_2_android.data.model.User
+import hu.bme.aut.android.lmdb.data.model.Movie
+import hu.bme.aut.android.lmdb.data.model.User
 
-@Database(entities = [User::class, Review::class], version = 1, exportSchema = false)
+@Database(entities = [User::class, Movie::class], version = 1, exportSchema = false)
 abstract class UserDatabase : RoomDatabase() {
 
     abstract fun userWithReviewsDao(): UserWithReviewsDao

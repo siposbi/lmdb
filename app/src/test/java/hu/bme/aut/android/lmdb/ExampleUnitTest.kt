@@ -1,4 +1,4 @@
-package hu.bme.aut.android.kliensalk_hf_2_android
+package hu.bme.aut.android.lmdb
 
 import org.junit.Test
 
