@@ -7,12 +7,11 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import hu.bme.aut.android.lmdb.MainActivity
 import hu.bme.aut.android.lmdb.MainActivity.Companion.KEY_IS_LOGGED_IN_STRING
 import hu.bme.aut.android.lmdb.MainActivity.Companion.KEY_USER_PREFERENCES_STRING
 import hu.bme.aut.android.lmdb.R
-import hu.bme.aut.android.lmdb.activity.ViewReview.Companion.KEY_REVIEW_STRING
+import hu.bme.aut.android.lmdb.activity.ViewMovie.Companion.KEY_REVIEW_STRING
 import hu.bme.aut.android.lmdb.adapter.MovieAdapter
 import hu.bme.aut.android.lmdb.data.UserDatabase
 import hu.bme.aut.android.lmdb.data.model.Movie
@@ -33,7 +32,7 @@ class MovieListActivity : AppCompatActivity(), MovieAdapter.MovieClickListener,
     private lateinit var database: UserDatabase
 
     private val newReviewContract =
-        registerForActivityResult(NewReviewActivity.NewReviewContract()) { review ->
+        registerForActivityResult(NewMovieActivity.NewMovieContract()) { review ->
             if (review == null) {
 //                Snackbar.make(binding.root, "a", Snackbar.LENGTH_LONG).show()
                 showSnackbar(R.string.movie_not_saved_msg, binding.root)
@@ -43,7 +42,7 @@ class MovieListActivity : AppCompatActivity(), MovieAdapter.MovieClickListener,
         }
 
     private val editReviewContract =
-        registerForActivityResult(NewReviewActivity.EditReviewContract()) { review ->
+        registerForActivityResult(NewMovieActivity.EditMovieContract()) { review ->
             if (review == null) {
                 showSnackbar(R.string.movie_not_edited_msg, binding.root)
             } else {
@@ -79,7 +78,7 @@ class MovieListActivity : AppCompatActivity(), MovieAdapter.MovieClickListener,
     }
 
     override fun onItemClicked(item: Movie) {
-        startActivity(Intent(this, ViewReview::class.java).putExtra(KEY_REVIEW_STRING, item))
+        startActivity(Intent(this, ViewMovie::class.java).putExtra(KEY_REVIEW_STRING, item))
     }
 
     override fun onItemModified(item: Movie) {
