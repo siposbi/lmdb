@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import hu.bme.aut.android.kliensalk_hf_2_android.activity.ListActivity
-import hu.bme.aut.android.kliensalk_hf_2_android.data.User
 import hu.bme.aut.android.kliensalk_hf_2_android.data.UserDatabase
+import hu.bme.aut.android.kliensalk_hf_2_android.data.model.User
 import hu.bme.aut.android.kliensalk_hf_2_android.databinding.ActivityMainBinding
 import kotlinx.coroutines.*
 
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
             if (checkInputFields().not()) {
                 return@setOnClickListener
             }
-            val username = binding.etUsername.text.toString().lowercase()
+            val username = binding.etUsername.text.toString()
             val password = binding.etPassword.text.toString()
             launch {
                 val user = database.userWithReviewsDao().login(username, password)
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
             if (checkInputFields().not()) {
                 return@setOnClickListener
             }
-            val username = binding.etUsername.text.toString().lowercase()
+            val username = binding.etUsername.text.toString()
             val password = binding.etPassword.text.toString()
             launch {
                 if (database.userWithReviewsDao().checkIfExists(username) > 0) {

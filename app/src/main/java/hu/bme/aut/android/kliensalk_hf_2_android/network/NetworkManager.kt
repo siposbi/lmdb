@@ -1,6 +1,6 @@
 package hu.bme.aut.android.kliensalk_hf_2_android.network
 
-import hu.bme.aut.android.kliensalk_hf_2_android.model.OMDBData
+import hu.bme.aut.android.kliensalk_hf_2_android.network.model.OMDBData
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
