@@ -45,7 +45,7 @@ class MovieAdapter(private val listener: MovieClickListener) :
     }
 
     fun update(item: Movie) {
-        items.indexOfFirst { it.reviewId == item.reviewId }.also { index ->
+        items.indexOfFirst { it.movieId == item.movieId }.also { index ->
             items[index] = item
             notifyItemChanged(index)
         }
