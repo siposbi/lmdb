@@ -34,4 +34,12 @@
         android:scaleType="fitXY"
         android:src="@drawable/ic_baseline_delete_24" />
 
+    <ImageButton
+        android:id="@+id/ibEdit"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_baseline_edit_24" />
+
 </LinearLayout>
