@@ -1,6 +1,24 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = "1.5.0"
+    ext {
+        kotlin_version = "1.5.0"
+
+        activityVersion = '1.2.3'
+        fragmentVersion = '1.3.3'
+        appCompatVersion = '1.2.0'
+        constraintLayoutVersion = '2.0.4'
+        coreTestingVersion = '2.1.0'
+        coroutines = '1.5.0-RC'
+        materialVersion = '1.3.0'
+        roomVersion = '2.3.0'
+        retrofitVersion = '2.9.0'
+        picassoVersion = '2.8'
+        databaseInspector = '1.0.6'
+        // testing
+        junitVersion = '4.13.2'
+        espressoVersion = '3.1.0'
+        androidxJunitVersion = '1.1.2'
+    }
     repositories {
         google()
         mavenCentral()
@@ -17,7 +35,6 @@ buildscript {
 allprojects {
     repositories {
         google()
-        mavenCentral()
         jcenter() // Warning: this repository is going to shut down soon
     }
 }

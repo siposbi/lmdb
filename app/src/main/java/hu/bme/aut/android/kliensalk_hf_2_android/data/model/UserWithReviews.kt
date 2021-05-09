@@ -1,4 +1,4 @@
-package hu.bme.aut.android.kliensalk_hf_2_android.data
+package hu.bme.aut.android.kliensalk_hf_2_android.data.model
 
 import androidx.room.Embedded
 import androidx.room.Relation
