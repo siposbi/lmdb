@@ -4,15 +4,16 @@ buildscript {
         kotlin_version = "1.5.0"
 
         activityVersion = '1.2.3'
+        fragmentVersion = '1.3.3'
         appCompatVersion = '1.2.0'
         constraintLayoutVersion = '2.0.4'
         coreTestingVersion = '2.1.0'
         coroutines = '1.5.0-RC'
-        lifecycleVersion = '2.3.1'
         materialVersion = '1.3.0'
         roomVersion = '2.3.0'
         retrofitVersion = '2.9.0'
         picassoVersion = '2.8'
+        databaseInspector = '1.0.6'
         // testing
         junitVersion = '4.13.2'
         espressoVersion = '3.1.0'
