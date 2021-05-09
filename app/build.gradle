@@ -10,8 +10,8 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "hu.bme.aut.android.kliensalk_hf_2_android"
-        minSdkVersion 21
+        applicationId "hu.bme.aut.android.lmdb"
+        minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"

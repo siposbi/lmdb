@@ -1,8 +1,8 @@
-package hu.bme.aut.android.kliensalk_hf_2_android.data
+package hu.bme.aut.android.lmdb.data
 
 import androidx.room.*
-import hu.bme.aut.android.kliensalk_hf_2_android.data.model.Review
-import hu.bme.aut.android.kliensalk_hf_2_android.data.model.User
+import hu.bme.aut.android.lmdb.data.model.Movie
+import hu.bme.aut.android.lmdb.data.model.User
 
 @Dao
 interface UserWithReviewsDao {
@@ -15,18 +15,18 @@ interface UserWithReviewsDao {
     suspend fun login(username: String, password: String): User
 
     @Transaction
-    @Query("SELECT * FROM Review WHERE userCreatorId = :userId")
-    fun getReviewsForUser(userId: Long): List<Review>
+    @Query("SELECT * FROM Movie WHERE userCreatorId = :userId")
+    fun getReviewsForUser(userId: Long): List<Movie>
 
     @Query("SELECT COUNT(*) FROM User WHERE UPPER(username) = UPPER(:username)")
     suspend fun checkIfExists(username: String): Int
 
     @Update
-    suspend fun updateReview(review: Review)
+    suspend fun updateReview(movie: Movie)
 
     @Insert
-    suspend fun insertReview(review: Review): Long
+    suspend fun insertReview(movie: Movie): Long
 
     @Delete
-    suspend fun deleteReview(review: Review)
+    suspend fun deleteReview(movie: Movie)
 }

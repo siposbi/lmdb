@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="hu.bme.aut.android.kliensalk_hf_2_android">
+    package="hu.bme.aut.android.lmdb">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -10,13 +10,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Kliensalkhf2android"
+        android:theme="@style/Theme.LMDB"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.ViewReview"></activity>
-        <activity android:name=".activity.NewReviewActivity" />
-        <activity android:name=".activity.ListActivity" />
+        <activity android:name="hu.bme.aut.android.lmdb.activity.ViewReview"></activity>
+        <activity android:name="hu.bme.aut.android.lmdb.activity.NewReviewActivity" />
+        <activity android:name="hu.bme.aut.android.lmdb.activity.MovieListActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name="hu.bme.aut.android.lmdb.MainActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

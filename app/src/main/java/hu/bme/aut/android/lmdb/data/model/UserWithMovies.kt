@@ -1,13 +1,13 @@
-package hu.bme.aut.android.kliensalk_hf_2_android.data.model
+package hu.bme.aut.android.lmdb.data.model
 
 import androidx.room.Embedded
 import androidx.room.Relation
 
-data class UserWithReviews(
+data class UserWithMovies(
     @Embedded val user: User,
     @Relation(
         parentColumn = "userId",
         entityColumn = "userCreatorId"
     )
-    val reviews: List<Review>
+    val movies: List<Movie>
 )
