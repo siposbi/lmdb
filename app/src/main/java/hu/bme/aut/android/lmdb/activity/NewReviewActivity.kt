@@ -1,4 +1,4 @@
-package hu.bme.aut.android.kliensalk_hf_2_android.activity
+package hu.bme.aut.android.lmdb.activity
 
 import android.app.AlertDialog
 import android.content.Context
@@ -10,11 +10,12 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
-import hu.bme.aut.android.kliensalk_hf_2_android.R
-import hu.bme.aut.android.kliensalk_hf_2_android.data.model.Review
-import hu.bme.aut.android.kliensalk_hf_2_android.databinding.ActivityNewReviewBinding
-import hu.bme.aut.android.kliensalk_hf_2_android.network.NetworkManager
-import hu.bme.aut.android.kliensalk_hf_2_android.network.model.OMDBData
+import hu.bme.aut.android.lmdb.R
+import hu.bme.aut.android.lmdb.data.model.Movie
+import hu.bme.aut.android.lmdb.databinding.ActivityNewReviewBinding
+import hu.bme.aut.android.lmdb.network.NetworkManager
+import hu.bme.aut.android.lmdb.network.model.OMDBData
+import hu.bme.aut.android.lmdb.utils.isValid
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,10 +29,10 @@ class NewReviewActivity : AppCompatActivity() {
         binding = ActivityNewReviewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        title = getString(R.string.add_review_title)
+        title = getString(R.string.add_movie_title)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val review = intent.getParcelableExtra<Review>("review")
+        val review = intent.getParcelableExtra<Movie>("review")
         if (review != null) {
             initFroEdit(review)
         }
@@ -54,7 +55,7 @@ class NewReviewActivity : AppCompatActivity() {
                                 binding.etYear.setText(response.body()!!.year!!)
                                 binding.etGenre.setText(response.body()!!.genre!!)
                                 binding.etPlot.setText(response.body()!!.plot!!)
-                                binding.etPosterIrl.setText(response.body()!!.poster!!)
+                                binding.etPosterUrl.setText(response.body()!!.poster!!)
                             }
                             "False" -> {
                                 Toast.makeText(
@@ -90,14 +91,14 @@ class NewReviewActivity : AppCompatActivity() {
 
         binding.btnSave.setOnClickListener {
             if (checkInputFields()) {
-                val responseReview = Review(
+                val responseReview = Movie(
                     reviewId = review?.reviewId ?: 0,
                     userCreatorId = intent.getLongExtra("userId", 0),
                     title = binding.etTitle.text.toString(),
                     year = binding.etYear.text.toString(),
                     genre = binding.etGenre.text.toString(),
                     plot = binding.etPlot.text.toString(),
-                    posterUrl = binding.etPosterIrl.text.toString()
+                    posterUrl = binding.etPosterUrl.text.toString()
                 )
 
                 setResult(RESULT_OK, Intent().putExtra("review", responseReview))
@@ -106,40 +107,20 @@ class NewReviewActivity : AppCompatActivity() {
         }
     }
 
-    private fun initFroEdit(review: Review) {
-        binding.etTitle.setText(review.title)
-        binding.etYear.setText(review.year)
-        binding.etGenre.setText(review.genre)
-        binding.etPlot.setText(review.plot)
-        binding.etPosterIrl.setText(review.posterUrl)
+    private fun initFroEdit(movie: Movie) {
+        binding.etTitle.setText(movie.title)
+        binding.etYear.setText(movie.year)
+        binding.etGenre.setText(movie.genre)
+        binding.etPlot.setText(movie.plot)
+        binding.etPosterUrl.setText(movie.posterUrl)
     }
 
     private fun checkInputFields(): Boolean {
-        if (binding.etTitle.text.toString().isEmpty()) {
-            binding.etTitle.requestFocus()
-            binding.etTitle.error = getString(R.string.no_title_entered)
-        }
-        if (binding.etYear.text.toString().isEmpty()) {
-            binding.etYear.requestFocus()
-            binding.etYear.error = getString(R.string.no_year_entered)
-        }
-        if (binding.etGenre.text.toString().isEmpty()) {
-            binding.etGenre.requestFocus()
-            binding.etGenre.error = getString(R.string.no_genre_entered)
-        }
-        if (binding.etPlot.text.toString().isEmpty()) {
-            binding.etPlot.requestFocus()
-            binding.etPlot.error = getString(R.string.no_plot_entered)
-        }
-        if (binding.etPosterIrl.text.toString().isEmpty()) {
-            binding.etPosterIrl.requestFocus()
-            binding.etPosterIrl.error = getString(R.string.no_etposter_entered)
-        }
-        return binding.etTitle.text.toString().isNotEmpty() &&
-                binding.etYear.text.toString().isNotEmpty() &&
-                binding.etGenre.text.toString().isNotEmpty() &&
-                binding.etPlot.text.toString().isNotEmpty() &&
-                binding.etPosterIrl.text.toString().isNotEmpty()
+        return binding.etTitle.isValid(R.string.no_title_entered_error) &&
+                binding.etYear.isValid(R.string.no_year_entered_error) &&
+                binding.etGenre.isValid(R.string.no_genre_entered_error) &&
+                binding.etPlot.isValid(R.string.no_plot_entered_error) &&
+                binding.etPosterUrl.isValid(R.string.no_poster_url_entered_error)
     }
 
     override fun onBackPressed() {
@@ -168,20 +149,20 @@ class NewReviewActivity : AppCompatActivity() {
         return super.onContextItemSelected(item)
     }
 
-    class NewReviewContract : ActivityResultContract<Long, Review?>() {
+    class NewReviewContract : ActivityResultContract<Long, Movie?>() {
         override fun createIntent(context: Context, input: Long?): Intent =
             Intent(context, NewReviewActivity::class.java).putExtra("userId", input)
 
-        override fun parseResult(resultCode: Int, intent: Intent?): Review? =
+        override fun parseResult(resultCode: Int, intent: Intent?): Movie? =
             intent?.getParcelableExtra("review")
 
     }
 
-    class EditReviewContract : ActivityResultContract<Review, Review?>() {
-        override fun createIntent(context: Context, input: Review?): Intent =
+    class EditReviewContract : ActivityResultContract<Movie, Movie?>() {
+        override fun createIntent(context: Context, input: Movie?): Intent =
             Intent(context, NewReviewActivity::class.java).putExtra("review", input)
 
-        override fun parseResult(resultCode: Int, intent: Intent?): Review? =
+        override fun parseResult(resultCode: Int, intent: Intent?): Movie? =
             intent?.getParcelableExtra("review")
 
     }

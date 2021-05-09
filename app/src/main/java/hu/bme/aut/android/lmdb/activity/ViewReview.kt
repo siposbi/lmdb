@@ -1,21 +1,24 @@
-package hu.bme.aut.android.kliensalk_hf_2_android.activity
+package hu.bme.aut.android.lmdb.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.Picasso
-import hu.bme.aut.android.kliensalk_hf_2_android.data.model.Review
-import hu.bme.aut.android.kliensalk_hf_2_android.databinding.ActivityViewReviewBinding
+import hu.bme.aut.android.lmdb.data.model.Movie
+import hu.bme.aut.android.lmdb.databinding.ActivityViewReviewBinding
 
 
 class ViewReview : AppCompatActivity() {
-    lateinit var binding: ActivityViewReviewBinding
+    companion object {
+        const val KEY_REVIEW_STRING = "KEY_REVIEW_STRING"
+    }
+    private lateinit var binding: ActivityViewReviewBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityViewReviewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val review = intent.getParcelableExtra<Review>("review")!!
+        val review = intent.getParcelableExtra<Movie>(KEY_REVIEW_STRING)!!
 
         title = review.title
 

@@ -1,4 +1,4 @@
-package hu.bme.aut.android.kliensalk_hf_2_android.data.model
+package hu.bme.aut.android.lmdb.data.model
 
 import android.os.Parcelable
 import androidx.room.Entity
@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Entity
 @Parcelize
-data class Review(
+data class Movie(
     @PrimaryKey(autoGenerate = true) val reviewId: Long = 0,
     val userCreatorId: Long,
     val title: String,

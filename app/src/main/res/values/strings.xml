@@ -1,22 +1,45 @@
 <resources>
     <string name="app_name">kliensalk-hf-2-android</string>
-    <string name="login_to_use_lmdb">Login to use LMDB</string>
+
+    <!-- EditText errors -->
+    <string name="no_username_entered_error">Username required</string>
+    <string name="no_password_entered_error">Password required</string>
+    <string name="no_title_entered_error">Title required</string>
+    <string name="no_year_entered_error">Year required</string>
+    <string name="no_genre_entered_error">Genre required</string>
+    <string name="no_plot_entered_error">Plot required</string>
+    <string name="no_poster_url_entered_error">Poster URL required</string>
+
+    <!-- Page titles -->
+    <string name="main_title">Login Or Register</string>
+    <string name="list_title">Reviews by %1$s</string>
+    <string name="add_movie_title">Add Movie</string>
+
+    <!-- MainActivity -->
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login_button">Login</string>
-    <string name="no_username_entered_error">Please enter your username</string>
-    <string name="no_password_entered_error">Please enter your password</string>
     <string name="register_button">Register</string>
-    <string name="main_title">Login Or Register</string>
+    <string name="username_exists_error">Username Exists</string>
+    <string name="invalid_credentials_error">Invalid Credentials</string>
+    <string name="successfully_registered_msg">Successfully Registered</string>
+
+    <!-- MovieListActivity -->
+    <string name="movie_saved_msg">Movie saved</string>
+    <string name="movie_not_saved_msg">Movie not saved</string>
+    <string name="movie_edited_msg">Movie edited</string>
+    <string name="movie_not_edited_msg">Movie not edited</string>
+
+
+
+
+
+
+    <string name="login_to_use_lmdb">Login to use LMDB</string>
+
+    <string name="search_button">Search to autofill</string>
     <string name="fab_content_description">Add Review</string>
-    <string name="add_review_title">Add Review</string>
-    <string name="reviews_title">Reviews by %1$s</string>
     <string name="ok">Save</string>
     <string name="cancel">Cancel</string>
-    <string name="search_button">Search to autofill</string>
-    <string name="no_title_entered">No title entered</string>
-    <string name="no_year_entered">No year entered</string>
-    <string name="no_genre_entered">No genre entered</string>
-    <string name="no_plot_entered">No plot entered</string>
-    <string name="no_etposter_entered">No Poster URL entered</string>
+
 </resources>
