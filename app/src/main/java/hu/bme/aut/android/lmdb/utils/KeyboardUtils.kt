@@ -1,4 +1,4 @@
-package hu.bme.aut.android.kliensalk_hf_2_android.utils
+package hu.bme.aut.android.lmdb.utils
 
 import android.app.Activity
 import android.content.Context
