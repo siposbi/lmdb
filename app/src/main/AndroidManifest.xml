@@ -12,8 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LMDB"
         android:usesCleartextTraffic="true">
-        <activity android:name="hu.bme.aut.android.lmdb.activity.ViewReview"></activity>
-        <activity android:name="hu.bme.aut.android.lmdb.activity.NewReviewActivity" />
+        <activity android:name="hu.bme.aut.android.lmdb.activity.ViewMovie"></activity>
+        <activity android:name="hu.bme.aut.android.lmdb.activity.NewMovieActivity" />
         <activity android:name="hu.bme.aut.android.lmdb.activity.MovieListActivity" />
         <activity
             android:name="hu.bme.aut.android.lmdb.MainActivity"
