@@ -3,7 +3,7 @@ package hu.bme.aut.android.kliensalk_hf_2_android.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.squareup.picasso.Picasso
-import hu.bme.aut.android.kliensalk_hf_2_android.data.Review
+import hu.bme.aut.android.kliensalk_hf_2_android.data.model.Review
 import hu.bme.aut.android.kliensalk_hf_2_android.databinding.ActivityViewReviewBinding
 
 
@@ -21,8 +21,7 @@ class ViewReview : AppCompatActivity() {
 
         val widthInPixels = applicationContext.resources.displayMetrics.widthPixels
 
-        Picasso.get().load(review.posterUrl).resize(widthInPixels, (widthInPixels * 1.47).toInt())
-            .centerCrop().into(binding.ivPoster)
+        Picasso.get().load(review.posterUrl).resize(widthInPixels, 0).into(binding.ivPoster)
 
         binding.etTitle.text = review.title
         binding.etYear.text = review.year
