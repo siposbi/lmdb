@@ -32,6 +32,8 @@
     <string name="movie_edited_msg">Movie edited</string>
     <string name="movie_not_edited_msg">Movie not edited</string>
     <string name="logout_button_title">Logout</string>
+    <string name="add_new_movie_fab">Add new Movie</string>
+    <string name="edit_card_text">Edit</string>
 
     <!-- NewMovieActivity -->
     <string name="network_error">Network error: %1$s</string>
@@ -48,5 +50,10 @@
 
     <!-- ViewMovieActivity -->
     <string name="current_movie_poster">Current movie poster</string>
+
+    <!-- MovieListItem -->
+    <string name="delete_card_text">Delete</string>
+    <string name="view_card_text">View</string>
+    <string name="delete_item_alert_title">Delete %1$s?</string>
 
 </resources>
