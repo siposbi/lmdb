@@ -19,8 +19,9 @@ class MovieAdapter(private val listener: MovieClickListener) :
 
         holder.binding.tvTitle.text = current.title
         holder.binding.tvYear.text = current.year
+        holder.binding.tvPlot.text = current.plot
 
-        holder.binding.ibRemove.setOnClickListener {
+        holder.binding.btnDelete.setOnClickListener {
             listener.onItemRemoved(current)
         }
 
@@ -28,19 +29,19 @@ class MovieAdapter(private val listener: MovieClickListener) :
             listener.onItemClicked(current)
         }
 
-        holder.binding.ibEdit.setOnClickListener {
+        holder.binding.btnEdit.setOnClickListener {
             listener.onItemModified(current)
         }
     }
 
     fun addItem(item: Movie) {
-        items.add(item)
-        notifyItemInserted(items.size - 1)
+        items.add(0, item)
+        notifyItemInserted(0)
     }
 
     fun loadItems(loadedItems: List<Movie>) {
         items.clear()
-        items.addAll(loadedItems)
+        items.addAll(loadedItems.sortedByDescending(Movie::movieId))
         notifyDataSetChanged()
     }
 

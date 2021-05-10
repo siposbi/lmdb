@@ -1,6 +1,8 @@
 package hu.bme.aut.android.lmdb.activity
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -17,6 +19,7 @@ import hu.bme.aut.android.lmdb.data.UserDatabase
 import hu.bme.aut.android.lmdb.data.model.Movie
 import hu.bme.aut.android.lmdb.databinding.ActivityMovieListBinding
 import hu.bme.aut.android.lmdb.utils.showSnackbar
+import kotlinx.android.synthetic.main.activity_movie_list.view.*
 import kotlinx.coroutines.*
 
 
@@ -85,7 +88,17 @@ class MovieListActivity : AppCompatActivity(), MovieAdapter.MovieClickListener,
     }
 
     override fun onItemRemoved(item: Movie) {
-        deleteItemInBackground(item)
+        val builder = AlertDialog.Builder(this)
+
+        with(builder)
+        {
+            setTitle(getString(R.string.delete_item_alert_title, item.title))
+            setPositiveButton(R.string.positive_button_text) { _: DialogInterface, _: Int ->
+                deleteItemInBackground(item)
+            }
+            setNegativeButton(R.string.negative_button_text, null)
+            show()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -119,7 +132,7 @@ class MovieListActivity : AppCompatActivity(), MovieAdapter.MovieClickListener,
             database.userWithReviewsDao().insertReview(item)
         }
         showSnackbar(R.string.movie_saved_msg, binding.root)
-        adapter.addItem(item)
+        adapter.addItem(item).also { binding.root.recyclerview.scrollToPosition(0) }
     }
 
     private fun loadItemsInBackground() = launch {
