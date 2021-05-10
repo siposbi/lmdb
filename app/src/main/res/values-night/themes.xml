@@ -9,13 +9,14 @@
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/secondaryColor</item>
         <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
-        <item name="colorOnSecondary">@color/secondaryTextColor</item>
-        <item name="android:textColorSecondary">@color/secondaryTextColor</item>
+        <item name="colorOnSecondary">@color/primaryTextColor</item>
+        <item name="android:textColorSecondary">@color/primaryTextColor</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="fontFamily">sans-serif</item>
         <item name="android:fontFamily">sans-serif</item>
+        <item name="actionBarStyle">@style/Theme.LMDB.Actionbar</item>
     </style>das
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
@@ -24,6 +25,10 @@
 
     <style name="Theme.LMDB.TextInput" parent="">
         <item name="android:textColor">@color/primaryTextColor</item>
+    </style>
+
+    <style name="Theme.LMDB.Actionbar" parent="Widget.MaterialComponents.ActionBar.Solid">
+        <item name="background">@color/primaryColor</item>
     </style>
 
 </resources>
