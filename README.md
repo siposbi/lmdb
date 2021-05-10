@@ -11,6 +11,10 @@ Retrofit2 is used to call api data, so you don't need to fill out every detail f
 
 # Screens
 
-Login screen | Movie list screen | Add new / edit movie screen | View movie in detail
-:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
-<img src="images/login_screen.png" width=25% height=25% alt="Login screen">  |  <img src="images/list_screen.png" width=25% height=25% alt="Login screen">  |  <img src="images/edit_and_new_screen.png" width=25% height=25% alt="Login screen">  |  <img src="images/details_Screen.png" width=25% height=25% alt="Login screen">
+Login screen | Movie list screen
+:-------------------------:|:-------------------------:
+<img src="images/login_screen.png" width=25% height=25% alt="Login screen"> | <img src="images/list_screen.png" width=25% height=25% alt="Login screen">
+
+Add new / edit movie screen | View movie in detail
+:-------------------------:|:-------------------------:
+<img src="images/edit_and_new_screen.png" width=25% height=25% alt="Login screen"> | <img src="images/details_Screen.png" width=25% height=25% alt="Login screen">
