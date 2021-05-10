@@ -1,22 +1,58 @@
 <resources>
-    <string name="app_name">kliensalk-hf-2-android</string>
+    <string name="app_name">LMDB</string>
+
+    <!-- EditText errors -->
+    <string name="no_username_entered_error">Username required</string>
+    <string name="no_password_entered_error">Password required</string>
+    <string name="no_title_entered_error">Title required</string>
+    <string name="no_year_entered_error">Year required</string>
+    <string name="no_genre_entered_error">Genre required</string>
+    <string name="no_plot_entered_error">Plot required</string>
+    <string name="no_poster_url_entered_error">Poster URL required</string>
+
+    <!-- Page titles -->
+    <string name="main_title">Login Or Register</string>
+    <string name="list_title">Movies by %1$s</string>
+    <string name="add_movie_title">Add Movie</string>
+    <string name="edit_movie_title">Editing %1$s</string>
+
+    <!-- MainActivity -->
     <string name="login_to_use_lmdb">Login to use LMDB</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
-    <string name="login_button">Login</string>
-    <string name="no_username_entered_error">Please enter your username</string>
-    <string name="no_password_entered_error">Please enter your password</string>
-    <string name="register_button">Register</string>
-    <string name="main_title">Login Or Register</string>
-    <string name="fab_content_description">Add Review</string>
-    <string name="add_review_title">Add Review</string>
-    <string name="reviews_title">Reviews by %1$s</string>
-    <string name="ok">Save</string>
-    <string name="cancel">Cancel</string>
-    <string name="search_button">Search to autofill</string>
-    <string name="no_title_entered">No title entered</string>
-    <string name="no_year_entered">No year entered</string>
-    <string name="no_genre_entered">No genre entered</string>
-    <string name="no_plot_entered">No plot entered</string>
-    <string name="no_etposter_entered">No Poster URL entered</string>
+    <string name="login_button_text">Login</string>
+    <string name="register_button_text">Register</string>
+    <string name="username_exists_error">Username Exists</string>
+    <string name="invalid_credentials_error">Invalid Credentials</string>
+    <string name="successfully_registered_msg">Successfully Registered</string>
+
+    <!-- MovieListActivity -->
+    <string name="movie_saved_msg">Movie saved</string>
+    <string name="movie_not_saved_msg">Movie not saved</string>
+    <string name="movie_edited_msg">Movie edited</string>
+    <string name="movie_not_edited_msg">Movie not edited</string>
+    <string name="logout_button_title">Logout</string>
+    <string name="add_new_movie_fab">Add new Movie</string>
+    <string name="edit_card_text">Edit</string>
+
+    <!-- NewMovieActivity -->
+    <string name="network_error">Network error: %1$s</string>
+    <string name="discard_changes_alert_title">Discard changes?</string>
+    <string name="positive_button_text">Yes</string>
+    <string name="negative_button_text">No</string>
+    <string name="search_button_text">Search</string>
+    <string name="save_button_text">Save</string>
+    <string name="poster_url">Poster URL</string>
+    <string name="plot">Plot</string>
+    <string name="genre">Genre</string>
+    <string name="year">Year</string>
+    <string name="title">Title</string>
+
+    <!-- ViewMovieActivity -->
+    <string name="current_movie_poster">Current movie poster</string>
+
+    <!-- MovieListItem -->
+    <string name="delete_card_text">Delete</string>
+    <string name="delete_item_alert_title">Delete %1$s?</string>
+
 </resources>
