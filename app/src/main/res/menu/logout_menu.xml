@@ -6,9 +6,9 @@
 
     <item
         android:id="@+id/action_favorite"
-        android:orderInCategory="300"
-        android:title="Logout"
         android:icon="@drawable/ic_baseline_exit_to_app_24"
-        app:showAsAction="ifRoom" />
+        android:orderInCategory="300"
+        android:title="@string/logout_button_title"
+        app:showAsAction="always" />
 
 </menu>

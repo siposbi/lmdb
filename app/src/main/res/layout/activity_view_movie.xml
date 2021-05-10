@@ -14,48 +14,99 @@
             android:id="@+id/ivPoster"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/current_movie_poster"
             tools:layout_height="500dp"
             tools:layout_width="match_parent" />
 
-        <TextView
-            android:id="@+id/etTitle"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:fontFamily="sans-serif-light"
-            android:hint="Title"
-            android:minHeight="20dp"
-            android:textSize="18sp" />
+            android:layout_marginBottom="40dp"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <TextView
-            android:id="@+id/etYear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:fontFamily="sans-serif-light"
-            android:hint="Year"
-            android:minHeight="20dp"
-            android:textSize="18sp" />
+            <TextView
+                android:id="@+id/etTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif-light"
+                android:hint="@string/title"
+                android:minHeight="20dp"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/etGenre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:fontFamily="sans-serif-light"
-            android:hint="Genre"
-            android:minHeight="20dp"
-            android:textSize="18sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/etPlot"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:fontFamily="sans-serif-light"
-            android:hint="Plot"
-            android:minHeight="20dp"
-            android:textSize="18sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="@string/year"
+                    android:minHeight="20dp"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/etYear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="@string/year"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="@string/genre"
+                    android:minHeight="20dp"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/etGenre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="@string/genre"
+                    android:minHeight="20dp"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif-light"
+                android:hint="@string/plot"
+                android:minHeight="10dp"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/etPlot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:hint="@string/plot"
+                android:minHeight="20dp"
+                android:textSize="18sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
