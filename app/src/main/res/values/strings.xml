@@ -12,7 +12,7 @@
 
     <!-- Page titles -->
     <string name="main_title">Login Or Register</string>
-    <string name="list_title">Reviews by %1$s</string>
+    <string name="list_title">Movies by %1$s</string>
     <string name="add_movie_title">Add Movie</string>
     <string name="edit_movie_title">Editing %1$s</string>
 

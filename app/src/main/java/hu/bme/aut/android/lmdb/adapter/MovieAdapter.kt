@@ -4,14 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.lmdb.data.model.Movie
-import hu.bme.aut.android.lmdb.databinding.ReviewListItemBinding
+import hu.bme.aut.android.lmdb.databinding.MovieListItemBinding
 
 class MovieAdapter(private val listener: MovieClickListener) :
     RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     private val items = mutableListOf<Movie>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MovieViewHolder(
-        ReviewListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        MovieListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
@@ -68,6 +68,6 @@ class MovieAdapter(private val listener: MovieClickListener) :
         fun onItemModified(item: Movie)
     }
 
-    inner class MovieViewHolder(val binding: ReviewListItemBinding) :
+    inner class MovieViewHolder(val binding: MovieListItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 }

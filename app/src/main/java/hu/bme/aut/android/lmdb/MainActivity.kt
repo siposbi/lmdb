@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
         if (isLoggedIn) {
             val loginId = sharedPreferences.getLong(KEY_USERID_STRING, 0)
             val loginUsername = sharedPreferences.getString(KEY_USERNAME_STRING, "")
-            startActivity(createReviewIntent(loginId, loginUsername!!))
+            startActivity(createMovieIntent(loginId, loginUsername!!))
             finish()
             return
         }
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
             val username = binding.etUsername.text.toString()
             val password = binding.etPassword.text.toString()
             launch {
-                val user = database.userWithReviewsDao().login(username, password)
+                val user = database.userWithMoviesDao().login(username, password)
                 if (user == null) {
                     showSnackbar(R.string.invalid_credentials_error)
                 } else {
@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                         putString(KEY_USERNAME_STRING, user.username)
                         apply()
                     }
-                    startActivity(createReviewIntent(user.userId, user.username))
+                    startActivity(createMovieIntent(user.userId, user.username))
                     finish()
                 }
             }
@@ -80,10 +80,10 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
             val username = binding.etUsername.text.toString()
             val password = binding.etPassword.text.toString()
             launch {
-                if (database.userWithReviewsDao().checkIfExists(username) > 0) {
+                if (database.userWithMoviesDao().checkIfExists(username) > 0) {
                     showSnackbar(R.string.username_exists_error)
                 } else {
-                    database.userWithReviewsDao()
+                    database.userWithMoviesDao()
                         .register(User(username = username, password = password))
                     showSnackbar(R.string.successfully_registered_msg)
                 }
@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope by MainScope() {
                 binding.etPassword.isValid(R.string.no_password_entered_error)
     }
 
-    private fun createReviewIntent(userId: Long, username: String): Intent {
+    private fun createMovieIntent(userId: Long, username: String): Intent {
         return Intent(this@MainActivity, MovieListActivity::class.java)
             .putExtra(KEY_USERID_STRING, userId)
             .putExtra(KEY_USERNAME_STRING, username)

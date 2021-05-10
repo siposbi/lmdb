@@ -34,21 +34,21 @@ class MovieListActivity : AppCompatActivity(), MovieAdapter.MovieClickListener,
     private lateinit var adapter: MovieAdapter
     private lateinit var database: UserDatabase
 
-    private val newReviewContract =
-        registerForActivityResult(NewMovieActivity.NewMovieContract()) { review ->
-            if (review == null) {
+    private val newMovieContract =
+        registerForActivityResult(NewMovieActivity.NewMovieContract()) { movie ->
+            if (movie == null) {
                 showSnackbar(R.string.movie_not_saved_msg, binding.root)
             } else {
-                addItemInBackground(review)
+                addItemInBackground(movie)
             }
         }
 
-    private val editReviewContract =
-        registerForActivityResult(NewMovieActivity.EditMovieContract()) { review ->
-            if (review == null) {
+    private val editMovieContract =
+        registerForActivityResult(NewMovieActivity.EditMovieContract()) { movie ->
+            if (movie == null) {
                 showSnackbar(R.string.movie_not_edited_msg, binding.root)
             } else {
-                updateItemInBackground(review)
+                updateItemInBackground(movie)
             }
         }
 
@@ -62,7 +62,7 @@ class MovieListActivity : AppCompatActivity(), MovieAdapter.MovieClickListener,
         title = getString(R.string.list_title, intent.getStringExtra(KEY_USERNAME_STRING))
 
         binding.fab.setOnClickListener {
-            newReviewContract.launch(intent.getLongExtra(KEY_USERID_STRING, 0))
+            newMovieContract.launch(intent.getLongExtra(KEY_USERID_STRING, 0))
         }
 
         initRecyclerView()
@@ -84,7 +84,7 @@ class MovieListActivity : AppCompatActivity(), MovieAdapter.MovieClickListener,
     }
 
     override fun onItemModified(item: Movie) {
-        editReviewContract.launch(item)
+        editMovieContract.launch(item)
     }
 
     override fun onItemRemoved(item: Movie) {
@@ -129,7 +129,7 @@ class MovieListActivity : AppCompatActivity(), MovieAdapter.MovieClickListener,
 
     private fun addItemInBackground(item: Movie) = launch {
         withContext(Dispatchers.IO) {
-            database.userWithReviewsDao().insertReview(item)
+            database.userWithMoviesDao().insertMovie(item)
         }
         showSnackbar(R.string.movie_saved_msg, binding.root)
         adapter.addItem(item).also { binding.root.recyclerview.scrollToPosition(0) }
@@ -137,15 +137,15 @@ class MovieListActivity : AppCompatActivity(), MovieAdapter.MovieClickListener,
 
     private fun loadItemsInBackground() = launch {
         val items = withContext(Dispatchers.IO) {
-            database.userWithReviewsDao()
-                .getReviewsForUser(intent.getLongExtra(KEY_USERID_STRING, 0))
+            database.userWithMoviesDao()
+                .getMoviesForUser(intent.getLongExtra(KEY_USERID_STRING, 0))
         }
         adapter.loadItems(items)
     }
 
     private fun updateItemInBackground(item: Movie) = launch {
         withContext(Dispatchers.IO) {
-            database.userWithReviewsDao().updateReview(item)
+            database.userWithMoviesDao().updateMovie(item)
         }
         showSnackbar(R.string.movie_edited_msg, binding.root)
         adapter.update(item)
@@ -153,7 +153,7 @@ class MovieListActivity : AppCompatActivity(), MovieAdapter.MovieClickListener,
 
     private fun deleteItemInBackground(item: Movie) = launch {
         withContext(Dispatchers.IO) {
-            database.userWithReviewsDao().deleteReview(item)
+            database.userWithMoviesDao().deleteMovie(item)
         }
         adapter.deleteItem(item)
     }

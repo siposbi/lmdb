@@ -5,7 +5,7 @@ import hu.bme.aut.android.lmdb.data.model.Movie
 import hu.bme.aut.android.lmdb.data.model.User
 
 @Dao
-interface UserWithReviewsDao {
+interface UserWithMoviesDao {
 
     @Insert
     suspend fun register(user: User)
@@ -17,14 +17,14 @@ interface UserWithReviewsDao {
     suspend fun checkIfExists(username: String): Int
 
     @Insert
-    suspend fun insertReview(movie: Movie): Long
+    suspend fun insertMovie(movie: Movie): Long
 
     @Query("SELECT * FROM Movie WHERE userCreatorId = :userId")
-    fun getReviewsForUser(userId: Long): List<Movie>
+    fun getMoviesForUser(userId: Long): List<Movie>
 
     @Update
-    suspend fun updateReview(movie: Movie)
+    suspend fun updateMovie(movie: Movie)
 
     @Delete
-    suspend fun deleteReview(movie: Movie)
+    suspend fun deleteMovie(movie: Movie)
 }

@@ -10,7 +10,7 @@ import hu.bme.aut.android.lmdb.data.model.User
 @Database(entities = [User::class, Movie::class], version = 1, exportSchema = false)
 abstract class UserDatabase : RoomDatabase() {
 
-    abstract fun userWithReviewsDao(): UserWithReviewsDao
+    abstract fun userWithMoviesDao(): UserWithMoviesDao
 
     companion object {
         @Volatile
