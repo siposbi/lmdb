@@ -11,10 +11,18 @@ Retrofit2 is used to call api data, so you don't need to fill out every detail f
 
 ### Login screen
 
+<img src="images/login_screen.png" width=50% height=50% alt="Login screen">
 
+![Login screen](images/login_screen.png)
 
 ### Movie list screen
 
+![Movie list screen](images/list_screen.png)
+
 ### Add new / edit movie screen
 
+![Add new / edit movie screen](images/edit_and_new_screen.png)
+
 ### View movie in detail
+
+![View movie in detail](images/details_screen.png)
