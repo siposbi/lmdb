@@ -14,6 +14,7 @@ import hu.bme.aut.android.lmdb.data.model.Movie
 import hu.bme.aut.android.lmdb.databinding.ActivityNewMovieBinding
 import hu.bme.aut.android.lmdb.network.NetworkManager
 import hu.bme.aut.android.lmdb.network.model.OMDBData
+import hu.bme.aut.android.lmdb.utils.hideKeyboard
 import hu.bme.aut.android.lmdb.utils.isValid
 import hu.bme.aut.android.lmdb.utils.showSnackbar
 import retrofit2.Call
@@ -46,6 +47,7 @@ class NewMovieActivity : AppCompatActivity() {
         binding.btnSearch.setOnClickListener {
             if (binding.etTitle.isValid(R.string.no_title_entered_error)) {
                 initSearch()
+                hideKeyboard()
             }
         }
 
