@@ -19,9 +19,9 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etTitle"
+                style="@style/Theme.LMDB.TextInput"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/secondaryTextColor" />
+                android:layout_height="wrap_content" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -34,9 +34,9 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etYear"
+                style="@style/Theme.LMDB.TextInput"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/secondaryTextColor" />
+                android:layout_height="wrap_content" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -49,9 +49,9 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etGenre"
+                style="@style/Theme.LMDB.TextInput"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/secondaryTextColor" />
+                android:layout_height="wrap_content" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,9 +64,9 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPlot"
+                style="@style/Theme.LMDB.TextInput"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/secondaryTextColor" />
+                android:layout_height="wrap_content" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,9 +79,9 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPosterUrl"
+                style="@style/Theme.LMDB.TextInput"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/secondaryTextColor" />
+                android:layout_height="wrap_content" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
