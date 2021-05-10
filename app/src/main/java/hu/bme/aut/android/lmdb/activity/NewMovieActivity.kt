@@ -102,9 +102,9 @@ class NewMovieActivity : AppCompatActivity() {
 
         with(builder)
         {
-            setTitle(getString(R.string.discard_changes_alert_title))
-            setPositiveButton(getString(R.string.positive_button_text)) { _: DialogInterface, _: Int -> super.onBackPressed() }
-            setNegativeButton(getString(R.string.negative_button_text), null)
+            setTitle(R.string.discard_changes_alert_title)
+            setPositiveButton(R.string.positive_button_text) { _: DialogInterface, _: Int -> super.onBackPressed() }
+            setNegativeButton(R.string.negative_button_text, null)
             show()
         }
     }
