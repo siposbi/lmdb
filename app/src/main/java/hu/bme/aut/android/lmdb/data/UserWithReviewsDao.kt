@@ -11,7 +11,7 @@ interface UserWithReviewsDao {
     suspend fun register(user: User)
 
     @Query("SELECT * FROM User WHERE UPPER(username) = UPPER(:username) and password = :password")
-    suspend fun login(username: String, password: String): User
+    suspend fun login(username: String, password: String): User?
 
     @Query("SELECT COUNT(*) FROM User WHERE UPPER(username) = UPPER(:username)")
     suspend fun checkIfExists(username: String): Int
